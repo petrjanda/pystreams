@@ -3,8 +3,9 @@ class Source:
     def from_list(self, list):
         def gen(list):
             i = 0
+            l = len(list)
             while True:
-                yield list[i]
+                yield list[i % l]
                 i += 1
 
         return Source(gen(list))

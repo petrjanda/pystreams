@@ -1,12 +1,21 @@
+import time
+
 from flow import Flow
 from source import Source
 
-s = Source.from_list([1,2,3])
+# Create source, flow and stream
+source = Source.from_list(["foo","bar","bazra"])
 
-m = Flow.map(fn = lambda i: i + 1) \
-    .filter(lambda i: i > 3) \
-    .map(lambda i: -i)
+flow = Flow.map(fn = lambda i: len(i)) \
+    .filter(lambda i: i != 3) \
+    .map(lambda i: "length: " + str(i))
 
-stream = s.via(m)
+stream = source.via(flow)
 
-print(next(stream.input))
+# Benchmark
+start = time.time()
+
+for i in range(0, 100000):
+    next(stream.input)
+
+print(time.time() - start)
