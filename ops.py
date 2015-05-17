@@ -2,7 +2,6 @@ class Op:
     def mat(self, input):
         return self.gen(input)
 
-
 class MapOp(Op):
     def __init__(self, fn):
         self.fn = fn
