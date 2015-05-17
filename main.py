@@ -1,4 +1,5 @@
-from ops import Source, MapOp, Flow
+from flow import Flow
+from source import Source
 
 s = Source.from_list([1,2,3])
 
