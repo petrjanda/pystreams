@@ -1,13 +1,26 @@
-class MapOp:
+class Op:
+    def mat(self, input):
+        return self.gen(input)
+
+
+class MapOp(Op):
     def __init__(self, fn):
         self.fn = fn
 
-    def mat(self, input):
-        def gen(input):
-            while True:
-                yield self.fn(next(input))
+    def gen(self, input):
+        while True:
+            yield self.fn(next(input))
 
-        return gen(input)
+class FilterOp(Op):
+    def __init__(self, pred):
+        self.pred = pred
+
+    def gen(self, input):
+        while True:
+            item = next(input)
+            
+            if(self.pred(item)):
+                yield item
 
 class Flow:
     @classmethod
@@ -27,6 +40,9 @@ class FlowImp:
 
     def map(self, fn):
         return FlowImp(MapOp(fn), self)
+
+    def filter(self, pred):
+        return FlowImp(FilterOp(pred), self)
 
 class Source:
     @classmethod

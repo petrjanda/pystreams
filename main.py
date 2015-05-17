@@ -3,6 +3,7 @@ from ops import Source, MapOp, Flow
 s = Source.from_list([1,2,3])
 
 m = Flow.map(fn = lambda i: i + 1) \
+    .filter(lambda i: i > 3) \
     .map(lambda i: -i)
 
 stream = s.via(m)
