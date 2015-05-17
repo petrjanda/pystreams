@@ -5,6 +5,10 @@ class Flow:
     def map(self, fn):
         return FlowImp(MapOp(fn))
 
+    @classmethod
+    def filter(self, pred):
+        return FlowImp(FilterOp(pred))
+
 class FlowImp:
     def __init__(self, op, prev = None):
         self.op = op
