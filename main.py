@@ -1,6 +1,6 @@
-from flow import Flow
-from sink import Sink
-from source import Source
+from streams.flow import Flow
+from streams.sink import Sink
+from streams.source import Source
 
 # Create source, flow and stream
 source = Source.from_list(["babrasta", "foo", "bar", "bazra", "aha", "fooba"])

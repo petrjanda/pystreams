@@ -1,4 +1,4 @@
-from ops import MapOp, FilterOp
+from .ops import MapOp, FilterOp
 
 class Flow:
     @classmethod

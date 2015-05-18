@@ -1,8 +1,8 @@
 import unittest 
 
-from sink import Sink
-from source import Source
-from flow import Flow
+from streams.sink import Sink
+from streams.source import Source
+from streams.flow import Flow
 
 class PyStreamIntegrationTest(unittest.TestCase):
     def test_reduce(self):
