@@ -5,7 +5,10 @@ class Source:
             i = 0
             l = len(list)
             while True:
-                yield list[i % l]
+                if i >= l:
+                    return
+
+                yield list[i]
                 i += 1
 
         return Source(gen(list))
@@ -15,3 +18,6 @@ class Source:
 
     def via(self, flow):
         return Source(flow.mat(self.input))
+
+    def to(self, sink):
+        sink.run(self.input)
