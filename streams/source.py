@@ -16,6 +16,16 @@ class Source:
 
         return Source(gen(list))
 
+    @classmethod
+    def from_file(self, file):
+        def gen(file):
+            for line in file:
+                yield line 
+
+        return Source(gen(file))
+
+
+
     def __init__(self, input):
         self.input = input
 
