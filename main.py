@@ -6,23 +6,22 @@ import string
 import resource
 import time
 
-def done(): print("done")
-def log(line): return len(line)
 
-# Create source, flow and stream
+# Open log file
 log = open('test/fixtures/es.log', encoding='utf-8')
 
+# Helper function ran when stream is done
+def on_complete(): 
+    log.close()
+    print("done")
+
+# Create source, flow and stream
 source = Source.from_file(log)
-
 filter = Flow.filter(lambda i: i.startswith("Caused by: org.elasticsearch.indices.IndexMissingException"))
-
 sink = Sink.reduce(0, lambda t, i: t + 1)
 
-flow = source \
-    .via(filter) \
-    .to(sink)
+result = source.via(filter).to(sink).run(on_complete)
 
-res = flow.run(done)
 print("---")
-print("total: " + str(res))
+print("total: " + str(result))
 
