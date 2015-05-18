@@ -20,4 +20,4 @@ class Source:
         return Source(flow.mat(self.input))
 
     def to(self, sink):
-        sink.run(self.input)
+        return sink.run(self.input)

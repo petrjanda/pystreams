@@ -1,18 +1,25 @@
 class Sink:
+    @classmethod
+    def foreach(self, fn):
+        return Sink(fn)
+
+    @classmethod
+    def reduce(self, zero, fn):
+        def red(item):
+            nonlocal zero
+            zero = fn(zero, item)
+
+            return zero
+
+        return Sink(red)
+
     def __init__(self, op):
         self.op = op
 
     def run(self, source):
-        co = self.co()
-        co.send(None)
-
-        try:
-            for i in range(100): 
-                co.send(next(source))
-        except StopIteration:
-            pass
-
-    def co(self):
+        last = None
         while True:
-            item = yield
-            self.op(item)
+            try:
+                last = self.op(next(source))
+            except StopIteration:
+                return last
