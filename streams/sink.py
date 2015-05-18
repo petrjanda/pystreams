@@ -16,10 +16,13 @@ class Sink:
     def __init__(self, op):
         self.op = op
 
-    def run(self, source):
+    def run(self, source, on_complete):
         last = None
         while True:
             try:
                 last = self.op(next(source))
             except StopIteration:
+                if on_complete:
+                    on_complete()
+
                 return last

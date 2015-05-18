@@ -27,8 +27,8 @@ class Source:
 
         return self
 
-    def run(self):
+    def run(self, on_complete = None):
         if not self.sink:
             raise SinkAbsent("You're trying to run stream without a sink!")
 
-        return self.sink.run(self.input)
+        return self.sink.run(self.input, on_complete)

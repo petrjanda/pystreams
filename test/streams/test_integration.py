@@ -14,3 +14,16 @@ class PyStreamIntegrationTest(unittest.TestCase):
             .via(Flow.map(lambda i: 2*i)) \
             .to(Sink.reduce(0, lambda t, i: t + i)).run()
         self.assertEqual(res, 2)
+
+    def test_on_complete(self):
+        done = False
+
+        def is_done():
+            nonlocal done
+            done = True
+
+        res = Source.from_list([1]) \
+            .to(Sink.reduce(0, lambda t, i: t + i)) \
+            .run(is_done)
+
+        self.assertTrue(done)

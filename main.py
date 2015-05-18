@@ -13,11 +13,13 @@ second = Flow.filter(lambda i: i[0] == "B") \
 
 sink = Sink.reduce(2, lambda c, i: c + i)
 
+def done(): print("done")
+
 res = source \
     .via(first) \
     .via(second) \
     .to(sink) \
-    .run()
+    .run(done)
 
 print("---")
 print(res)
