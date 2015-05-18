@@ -16,7 +16,8 @@ sink = Sink.reduce(2, lambda c, i: c + i)
 res = source \
     .via(first) \
     .via(second) \
-    .to(sink)
+    .to(sink) \
+    .run()
 
 print("---")
 print(res)

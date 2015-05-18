@@ -1,3 +1,6 @@
+class SinkAbsent(Exception):
+    pass
+
 class Source:
     @classmethod
     def from_list(self, list):
@@ -20,4 +23,12 @@ class Source:
         return Source(flow.mat(self.input))
 
     def to(self, sink):
-        return sink.run(self.input)
+        self.sink = sink
+
+        return self
+
+    def run(self):
+        if not self.sink:
+            raise SinkAbsent("You're trying to run stream without a sink!")
+
+        return self.sink.run(self.input)
